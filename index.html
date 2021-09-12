@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Coding Quiz</title>
+        <link rel="stylesheet" href="./assets/css/style.css" />
+    </head>
+    <body>
+        <header>
+            <h1>Coding Quiz</h1>
+        </header>
+        <main>
+            <section class="quiz-info">
+                <div>
+                    <button class="high-scores" id="high-scores">See High Scores</button>
+                </div>
+                <div>
+                    <span>Time:</span> <span class="time-display" id="time-display"></span>
+                </div>
+            </section>
+            <section class="display-area">
+                <div id="welcome-message" class="welcome-message">
+                    <p>Welcome!  This quiz will test your understanding of JavaScript fundamentals.  When you are ready, press the start button below to begin.  Good luck!</p>
+                    <button id="startQuiz" onclick="startTheQuiz()">Start</button>
+                </div>
+                <div id="question-div" class="quiz-display"></div>
+                <div id="answer-status-div"></div>
+            </section>
+        </main>
+        <footer>
 
+        </footer>
+        <script src="./assets/js/quizObjects.js"></script>
+        <script src="./assets/js/quizRunner.js"></script>
+    </body>
+</html>
