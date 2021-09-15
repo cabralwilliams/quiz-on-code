@@ -61,17 +61,54 @@ startBtn.setAttribute("onclick","startTheQuiz()");
 welcomeDiv.appendChild(welcomePar);
 welcomeDiv.appendChild(startBtn);
 
+//Record Score Section
+var gameOverDiv = document.createElement("div");
+var gameOverPar = document.createElement("p");
+var scoreForm = document.createElement("form");
+var initialLabel = document.createElement("label");
+initialLabel.setAttribute("for","initialInput");
+initialLabel.textContent = "Initials: ";
+var initialInput = document.createElement("input");
+initialInput.type = "text";
+initialInput.id = "initialInput";
+initialInput.name = "initialInput";
+var gameOverBtn = document.createElement("button");
+gameOverBtn.className = "btn-class-1";
+gameOverBtn.textContent = "Submit Score";
+gameOverBtn.setAttribute("onclick","updateHighScores()");
+scoreForm.appendChild(initialLabel);
+scoreForm.appendChild(initialInput);
+scoreForm.appendChild(gameOverBtn);
+
+//Reset Game Message
+var gameResetDiv = document.createElement("div");
+gameResetDiv.className = "game-reset";
+var gameResetHeader = document.createElement("h2");
+gameResetHeader.className = "game-reset-h";
+gameResetHeader.textContent = "Thanks for playing!";
+var gameResetPar = document.createElement("p");
+gameResetPar.className = "game-reset-p";
+gameResetPar.textContent = "Click the button below to reset the quiz.";
+var gameResetButton = document.createElement("button");
+gameResetButton.className = "game-reset-btn";
+gameResetButton.setAttribute("onclick","resetQuiz()");
+gameResetButton.textContent = "Reset Quiz";
+gameResetDiv.appendChild(gameResetHeader);
+gameResetDiv.appendChild(gameResetPar);
+gameResetDiv.appendChild(gameResetButton);
+
 highScoreBtn.addEventListener("click", function() {
     if(!quizRunning && !showingTopTen) {
         showingTopTen = true;
+        welcomeMssgEl.innerHTML = "";
         if(highScores.length === 0) {
-            welcomeMssgEl.innerHTML = "";
             var message = document.createElement("h2");
             message.textContent = "There are no scores yet, so take the stupid quiz already!";
             questionEl.appendChild(message);
         } else {
             var headerEl = document.createElement("h2");
             headerEl.textContent = "Current Top 10";
+            questionEl.appendChild(headerEl);
             var topTenOl = document.createElement("ol");
             for(var i = 0; i < highScores.length; i++) {
                 var scoreLiEl = document.createElement("li");
@@ -107,7 +144,66 @@ function startTheQuiz() {
             timeEl.textContent = timeLimit;
         }
         if(timeLimit <= 0) {
-
+            quizRunning = false;
+            if(highScores.length < 10 || score >= highScores[9].score) {
+                var parText = "Congratulations!  Your score of <span class='redFont'>" + score + "</span> is a high score!  Please enter your initials below.";
+                gameOverPar.innerHTML = parText;
+                gameOverDiv.appendChild(gameOverPar);
+                gameOverDiv.appendChild(scoreForm);
+                questionEl.innerHTML = "";
+                questionEl.appendChild(gameOverDiv);
+            } else {
+                questionEl.innerHTML = "";
+                questionEl.appendChild(gameResetDiv);
+            }
         }
     }, 1000);
+}
+
+function updateHighScores() {
+    var newHighScoreArray = [];
+    var scoreObject = {};
+    scoreObject.score = score;
+    scoreObject.initials = document.querySelector("input[name='initialInput']").value;
+    if(highScores.length === 0) {
+        newHighScoreArray.push(scoreObject);
+    } else {
+        var scoreIndex = -1;
+        do {
+            scoreIndex++;
+        } while(highScores[scoreIndex].score > scoreObject.score);
+        if(scoreIndex === 0) {
+            newHighScoreArray.push(scoreObject);
+            var nextIndex = 0;
+            while(nextIndex < highScores.length) {
+                newHighScoreArray.push(highScores[nextIndex])
+                if(newHighScoreArray.length === 10) {
+                    break;
+                }
+                nextIndex++;
+            }
+        } else {
+            for(var i = 0; i < scoreIndex; i++) {
+                newHighScoreArray.push(highScores[i]);
+            }
+            newHighScoreArray.push(scoreObject);
+            while(newHighScoreArray.length < 10 || i < highScores.length) {
+                newHighScoreArray.push(highScores[i]);
+                i++;
+            }
+        }
+    }
+    highScores = newHighScoreArray;
+    localStorage.setItem("highScores",JSON.stringify(highScores));
+    questionEl.innerHTML = "";
+    questionEl.appendChild(gameResetDiv);
+}
+
+function resetQuiz() {
+    timeLimit = 120;
+    score = 0;
+    resetQIndex();
+    questionEl.innerHTML = "";
+    welcomeMssgEl.appendChild(welcomePar);
+    welcomeMssgEl.appendChild(startBtn);
 }
