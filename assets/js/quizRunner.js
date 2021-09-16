@@ -188,11 +188,13 @@ function startTheQuiz() {
         if(timeLimit < 0 || qIndex >= allQuestions.length) {
             clearInterval(countdown);
             timeEl.textContent = "0";
+            streak = 0;
         }
         if(timeLimit > -1) {
             timeEl.textContent = timeLimit;
         }
         if(timeLimit <= 0 || qIndex >= allQuestions.length) {
+            streak = 0;
             quizRunning = false;
             if(qIndex >= allQuestions.length) {
                 score += timeLimit;
@@ -257,6 +259,7 @@ function resetQuiz() {
     timeLimit = 120;
     score = 0;
     qIndex = 0;
+    streak = 0;
     allQuestions = createLimitedQuiz(10);
     currentAnswer = allQuestions[qIndex].correctAnswer;
     quizElements = createQuizElement(allQuestions[qIndex]);

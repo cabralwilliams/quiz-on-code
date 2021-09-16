@@ -1,5 +1,7 @@
 # Quiz-On-Code
 
+![The initial quiz welcome screen](./assets/images/quiz_welcome.PNG)
+
 ## Purpose
 An application that runs a timed coding quiz/timed coding quizzes
 
