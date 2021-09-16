@@ -34,6 +34,7 @@ h1 {
     padding-left: 50px;
     padding-right: 170px;
     margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 #high-scores {
@@ -58,7 +59,7 @@ h1 {
     justify-content: center;
 }
 
-.welcome-message {
+.welcome-message, .game-over-p, .game-reset-p {
     font-size: 22px;
 }
 
@@ -86,7 +87,7 @@ h1 {
 
 .multi-choice-btn {
     width: 320px;
-    font-size: 24px;
+    font-size: 22px;
     background-color: var(--color1);
     color: var(--color2);
     padding-top: 10px;
@@ -96,4 +97,67 @@ h1 {
     text-shadow: 1px 1px #000;
     text-align: left;
     padding-left: 15px;
+}
+
+.multi-choice-btn:hover {
+    background-color: var(--color3);
+    color: var(--color4);
+}
+
+.answer-status {
+    text-align: center;
+    font-size: 22px;
+    color: var(--color4);
+    border-top: var(--color4) solid 2px;
+    margin-top: 15px;
+    opacity: 0.75;
+}
+
+#initialInput, label {
+    font-size: 26px;
+}
+
+.btn-class-1, #empty-top-ten, .game-reset-btn {
+    font-size: 22px;
+    background-color: var(--color1);
+    color: var(--color2);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    margin-top: 10px;
+    text-shadow: 1px 1px #000;
+    text-align: left;
+    padding-left: 15px;
+}
+
+.top-ten-div {
+    display: flex;
+    flex-direction: column;
+
+}
+
+#empty-top-ten {
+    text-align: center;
+    width: auto;
+}
+
+div .empty-top-ten {
+    width: 320px;
+    margin: 10px auto;
+}
+
+/*Top Ten Styling*/
+.top-ten-header {
+    font-size: 30px;
+    color: var(--color4);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.top-ten-li {
+    font-size: 24px;
+    color: var(--color1);
+    margin: 5px auto;
+    text-align: center;
+    width: 240px;
 }
